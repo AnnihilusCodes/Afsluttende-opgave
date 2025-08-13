@@ -4,16 +4,15 @@ namespace Afsluttende_projekt_2
 {
     internal class Program
     {
-
-
+        //Udskriver tekst til konsollen
         static void print(string text)
         {
             Console.WriteLine(text);
         }
 
         static void Main(string[] args)
-
         {
+            //Liste til at gemme husopgaver
             List<string> houseTasks = new List<string>
             {
 
@@ -21,13 +20,14 @@ namespace Afsluttende_projekt_2
 
             while (true)
             {
+                //Viser nuværende opgaver
                 Console.WriteLine("\nHouse Tasks:");
                 for (int i = 0; i < houseTasks.Count; i++)
                 {
                     Console.WriteLine($"{i + 1}. {houseTasks[i]}");
                 }
 
-
+                //Viser muligheder for menuen
                 Console.WriteLine("\nMenu:");
                 string taskadd = "1. Add a task";
                 string taskremove = "2. Remove a task";
@@ -41,14 +41,17 @@ namespace Afsluttende_projekt_2
                 print(taskoverview);
                 print(taskexit);
 
+                //Læser brugerens valg
                 string choice = Console.ReadLine();
 
                 switch (choice)
                 {
                     case "1":
+                        //Tilføj en opgave
                         Console.Write("Type the new task: ");
                         string text = Console.ReadLine();
 
+                        //IsNullOrWhiteSpace sørger for at der ikke kan tilføjes 0 input
                         if (string.IsNullOrWhiteSpace(text))
                         {
                             Console.WriteLine("You did not write anything.");
@@ -61,19 +64,71 @@ namespace Afsluttende_projekt_2
                         break;
 
                     case "2":
-                        print(taskremove);
-                        Console.WriteLine("Enter the number of the task you want to remove:");
-                        Console.ReadLine();
-                        Console.WriteLine("Hej");
+                        //Fjern en opgave
+                        Console.Write("Write the task number to remove: ");
+                        string numberText = Console.ReadLine();
+
+                        int numberToRemove;
+                        //Tjekker om input er et gyldigt tal
+                        if (int.TryParse(numberText, out numberToRemove))
+                        {
+                            int index = numberToRemove - 1; //Konvertering fra 1-start til 0-start
+
+                            //Tjekker om nummeret findes i listen
+                            if (index >= 0 && index < houseTasks.Count)
+                            {
+                                Console.WriteLine("Removed: " + houseTasks[index]);
+                                houseTasks.RemoveAt(index);
+                            }
+                            else
+                            {
+                                Console.WriteLine("That number is not in the list.");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Please type a whole number.");
+                        }
                         break;
 
                     case "3":
-                        print(taskdone);
-                        Console.WriteLine("Enter the number of the task you want to mark as done:");
-                        Console.ReadLine();
+                        //Sæt en (done) bag opgaven for at markere den som færdig
+                        Console.Write("Write the task number to mark as done: ");
+                        string numberText = Console.ReadLine();
+
+                        int number;
+                        //Tjekker om input er et gyldigt tal
+                        if (int.TryParse(numberText, out number))
+                        {
+                            int index = number - 1;
+
+                            //Tjekker om nummeret findes i listen
+                            if (index >= 0 && index < houseTasks.Count)
+                            {
+                                //Sørger for at (done) ikke bliver tilføjet flere gange
+                                if (!houseTasks[index].EndsWith(" (done)"))
+                                {
+                                    houseTasks[index] = houseTasks[index] + " (done)";
+                                    Console.WriteLine("Marked as done.");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("That task is already done.");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("That number is not in the list.");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Please type a whole number.");
+                        }
                         break;
 
                     case "4":
+                        //Se listen af opgaver igen
                         print(taskoverview);
                         if (houseTasks.Count == 0)
                         {
@@ -90,10 +145,12 @@ namespace Afsluttende_projekt_2
                         break;
 
                     case "5":
+                        //Lukker programmet ned
                         Console.WriteLine("Exiting the program. Goodbye!");
                         return;
 
                     default:
+                        //Hvis et forkert input bliver skrevet ind
                         print("Invalid choice.");
                         break;
                 }
