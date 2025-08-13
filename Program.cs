@@ -64,6 +64,7 @@ namespace Afsluttende_projekt_2
                         print(taskremove);
                         Console.WriteLine("Enter the number of the task you want to remove:");
                         Console.ReadLine();
+                        Console.WriteLine("Hej");
                         break;
 
                     case "3":
