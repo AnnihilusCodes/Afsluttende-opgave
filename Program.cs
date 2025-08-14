@@ -48,7 +48,12 @@
                 switch (choice)
                 {
                     case "1":
-                        //Tilføj en opgave
+                        //Tilføj en opgave - tjekker om der er for mange opgaver
+                        if (houseTasks.Count >= 5)          
+                        {
+                            Console.WriteLine("You can only have 5 tasks on your list. Remove a task before adding a new one.");
+                            break;
+                        }
                         Console.Write("Type the new task: ");
                         string text = Console.ReadLine();
 
