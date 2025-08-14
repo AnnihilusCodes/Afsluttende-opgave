@@ -44,7 +44,9 @@ namespace Afsluttende_projekt_2
                 //Læser brugerens valg
                 string choice = Console.ReadLine();
 
+                //Variabel til at gemme tekst for task nummer
                 string numberText = null;
+
                 switch (choice)
                 {
                     case "1":
