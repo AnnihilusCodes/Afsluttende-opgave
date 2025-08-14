@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Afsluttende_projekt_2
+﻿namespace Afsluttende_projekt_2
 {
     internal class Program
     {
