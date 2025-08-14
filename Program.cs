@@ -32,7 +32,7 @@ namespace Afsluttende_projekt_2
                 string taskadd = "1. Add a task";
                 string taskremove = "2. Remove a task";
                 string taskdone = "3. Mark a task as done";
-                string taskoverview = "4. Overview of tasks";   
+                string taskoverview = "4. Overview of tasks";
                 string taskexit = "5. Exit";
 
                 print(taskadd);
@@ -44,6 +44,7 @@ namespace Afsluttende_projekt_2
                 //Læser brugerens valg
                 string choice = Console.ReadLine();
 
+                string numberText = null;
                 switch (choice)
                 {
                     case "1":
@@ -66,7 +67,7 @@ namespace Afsluttende_projekt_2
                     case "2":
                         //Fjern en opgave
                         Console.Write("Write the task number to remove: ");
-                        string numberText = Console.ReadLine();
+                        numberText = Console.ReadLine();
 
                         int numberToRemove;
                         //Tjekker om input er et gyldigt tal
@@ -91,39 +92,25 @@ namespace Afsluttende_projekt_2
                         }
                         break;
 
+
                     case "3":
-                        //Sæt en (done) bag opgaven for at markere den som færdig
-                        Console.Write("Write the task number to mark as done: ");
-                        string numberText = Console.ReadLine();
-
-                        int number;
-                        //Tjekker om input er et gyldigt tal
-                        if (int.TryParse(numberText, out number))
+                        //Case til at markere task som (done)
+                        if (houseTasks.Count == 0)
                         {
-                            int index = number - 1;
-
-                            //Tjekker om nummeret findes i listen
-                            if (index >= 0 && index < houseTasks.Count)
-                            {
-                                //Sørger for at (done) ikke bliver tilføjet flere gange
-                                if (!houseTasks[index].EndsWith(" (done)"))
-                                {
-                                    houseTasks[index] = houseTasks[index] + " (done)";
-                                    Console.WriteLine("Marked as done.");
-                                }
-                                else
-                                {
-                                    Console.WriteLine("That task is already done.");
-                                }
-                            }
-                            else
-                            {
-                                Console.WriteLine("That number is not in the list.");
-                            }
+                            Console.WriteLine("No tasks to mark as done.");
+                            break;
+                        }
+                        //Markere en opgave med (done) når opgaven bliver sat som løst
+                        Console.Write("Write the task number to mark as done: ");
+                        numberText = Console.ReadLine();
+                        if (int.TryParse(numberText, out int doneNumber) && doneNumber > 0 && doneNumber <= houseTasks.Count)
+                        {
+                            houseTasks[doneNumber - 1] += " (done)";
+                            Console.WriteLine("Task marked as done.");
                         }
                         else
                         {
-                            Console.WriteLine("Please type a whole number.");
+                            Console.WriteLine("Invalid task number.");
                         }
                         break;
 
@@ -157,5 +144,5 @@ namespace Afsluttende_projekt_2
 
             }
         }
-    }  
+    }
 }
